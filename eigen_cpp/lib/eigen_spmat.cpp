@@ -10,6 +10,7 @@
 
 using namespace Eigen;
 
+#include "eigen_triplet_iterator.cpp"
 #include "eigen_spmat_s.cpp"
 #include "eigen_spmat_d.cpp"
 #include "eigen_spmat_c.cpp"

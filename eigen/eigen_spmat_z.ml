@@ -28,6 +28,16 @@ let set x i j a = ml_eigen_set x (Int64.of_int i) (Int64.of_int j) a
 
 let insert x i j a = ml_eigen_insert x (Int64.of_int i) (Int64.of_int j) a
 
+type index_array = (int, Bigarray.int64_elt, Bigarray.c_layout) Bigarray.Array1.t
+
+let insertmany x (xs: index_array) (ys: index_array) vs = 
+  Bigarray.(
+    let len = Array1.dim xs in 
+    let _ = assert ((Array1.dim ys) == len) in 
+    let _ = assert ((Array1.dim vs) == len) in 
+    ml_eigen_insertmany x (Int64.of_int len) (bigarray_start array1 xs) (bigarray_start array1 ys) (bigarray_start array1 vs)
+  )
+
 let reset x = ml_eigen_reset x
 
 let is_compressed x = ml_eigen_is_compressed x = 1

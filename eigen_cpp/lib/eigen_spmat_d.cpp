@@ -70,6 +70,13 @@ void c_eigen_spmat_d_insert(c_spmat_d *m, INDEX i, INDEX j, spmat_d_elt x)
   (c_to_eigen(m)).insert(i,j) = x;
 }
 
+void c_eigen_spmat_d_insertmany(c_spmat_d *cm, size_t len, INDEX *xs, INDEX *ys, spmat_d_elt *vs)
+{
+  spmat_d &m = c_to_eigen(cm);
+  TripletIterator<spmat_d_elt> it = TripletIterator<spmat_d_elt>(len, xs, ys, vs);
+  m.setFromTriplets(it.begin(), it.end());
+}
+
 void c_eigen_spmat_d_reset(c_spmat_d *m)
 {
   (c_to_eigen(m)).setZero();
